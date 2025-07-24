@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Identitas Sanjaya</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+      position: relative;
+    }
+
+    video#bg-video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      min-width: 100%;
+      min-height: 100%;
+      object-fit: cover;
+      z-index: -1;
+    }
+
+    .container {
+      background-color: rgba(0, 0, 0, 0.5);
+      padding: 40px 30px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      text-align: center;
+      animation: fadeIn 2s ease;
+      max-width: 500px;
+    }
+
+    h1 {
+      font-size: 30px;
+      margin-bottom: 20px;
+    }
+
+    p {
+      font-size: 20px;
+      margin: 10px 0;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Video Latar -->
+  <video id="bg-video" autoplay muted loop playsinline>
+    <source src="background vid.mp4" type="video/mp4">
+    Browser tidak mendukung video.
+  </video>
+
+  <!-- Audio autoplay via HTML dan fallback JS -->
+  <audio id="backsound" autoplay loop>
+    <source src="AUD-20250607-WA0078.mp3" type="audio/mpeg">
+    Browser tidak mendukung audio.
+  </audio>
+
+  <!-- Konten -->
+  <div class="container">
+    <h1>Halo, saya Sanjaya 👋</h1>
+    <p>Saya kelas 9</p>
+    <p>Umur saya 15</p>
+    <p>Saya tinggal di Pemalang</p>
+  </div>
+
+  <script>
+    // Trik autoplay manual untuk backup jika autoplay HTML tidak berhasil
+    window.addEventListener('load', () => {
+      const audio = document.getElementById("backsound");
+
+      // Trik paksa autoplay pakai JS
+      const tryPlay = () => {
+        audio.play().catch((err) => {
+          console.warn("Autoplay diblokir, menunggu interaksi user...");
+        });
+      };
+
+      tryPlay();
+
+      // Auto-play ulang jika user klik layar (jika autoplay awal gagal)
+      document.addEventListener("click", tryPlay);
+      document.addEventListener("touchstart", tryPlay);
+    });
+  </script>
+</body>
+</html>
